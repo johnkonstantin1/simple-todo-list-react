@@ -10,7 +10,7 @@ const Input = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   function addItem() {
-    if (!newItem) {
+    if (!newItem || !newItemDesc) {
       alert("This field is empty");
       return;
     }
@@ -90,13 +90,19 @@ const Input = () => {
             >
               <div>ID: {item.id}</div>
               <div>Title: {item.title}</div>
-              <div>Description: {item.description}</div>
+              <div>
+                Description:{" "}
+                {selectedItem && selectedItem.id === item.id
+                  ? item.description
+                  : item.description.split(" ").splice(0, 4).join(" ") +
+                    (item.description.split(" ").length > 4 ? "..." : "")}
+              </div>
               <div>Status: {item.status ? "Complete" : "Uncomplete"}</div>
               <button onClick={() => toggleStatus(item.id)}>
                 Toggle Status
               </button>
               <button onClick={() => deleteItem(item.id)}>Delete</button>
-              <button onClick={() => openModal(item.id)}>Modal Winsow</button>
+              <button onClick={() => openModal(item.id)}>Modal Window</button>
             </li>
           );
         })}
